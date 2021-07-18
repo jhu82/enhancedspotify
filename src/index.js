@@ -1,12 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import App from './App.js'
 
-const HelloWorld =() => {
-	return (
-		<h1>
-		  Hello World
-		</h1>
-	);
-}
-
-ReactDOM.render(<HelloWorld />, document.getElementById("root"));
+const div = document.querySelector('div');
+console.log(document.querySelectorAll('div:not([id]'));
+ReactDOM.render(<App />, document.getElementById("root"));

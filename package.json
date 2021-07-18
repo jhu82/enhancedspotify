@@ -1,5 +1,5 @@
 {
-  "name": "EnhancedSpotify",
+  "name": "enhanced-spotify",
   "version": "1.0.0",
   "description": "Spotify clone with enhanced personalization features",
   "main": "index.js",
@@ -31,7 +31,16 @@
     "webpack-dev-server": "3.11.2"
   },
   "dependencies": {
+    "axios": "^0.21.1",
+    "cheerio": "^1.0.0-rc.10",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "html-react-parser": "^1.2.7",
+    "nodemon": "^2.0.9",
+    "qs": "^6.10.1",
     "react": "^17.0.2",
+    "react-bootstrap": "^1.6.1",
     "react-dom": "^17.0.2"
   }
 }
