@@ -11,9 +11,9 @@ const expiresIn = new URLSearchParams(window.location.search).get('expires_in');
 export default function App() {
     return(
         <div>
-        { (accessToken && refreshToken && expiresIn) ? <Player accessToken = {accessToken} 
-                                                               refreshToken = {refreshToken} 
-                                                               expiresIn = {expiresIn} /> 
+        { (accessToken && refreshToken && expiresIn) ? <Player _accessToken = {accessToken} 
+                                                               _refreshToken = {refreshToken} 
+                                                               _expiresIn = {expiresIn} /> 
                                                      : <Login /> }
         </div>
     )

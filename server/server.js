@@ -85,6 +85,7 @@ app.post('/refresh', async(req, res) => {
     })
 })
 
+//TO-DO: Add error handling
 app.post('/search', async(req, res) => {
     const url = `https://www.azlyrics.com/lyrics/${req.body.artist}/${req.body.song}.html`;
     const { data } = await axios.get(url);

@@ -1,25 +1,41 @@
 import React, { useState, useEffect } from 'react';
+import { useStore } from './store/SpotifyContextStore.js';
 import axios from 'axios';
 
-export default function useToken(accessToken, refreshToken, expiresIn) {
+export default function useToken(initialAccessToken, refreshToken, expiresIn) {
 
-    const [newAccessToken, setNewAccessToken] = useState(accessToken);
+    const [{ accessToken }, dispatch] = useStore();
+
+    //Executes token refresh using expiresIn as countdown timer, to ensure there will be a new access token prior to expiration.
+    //TODO: ensure refresh token transfers smoothly in Spotify SDK once expires, and new token is received
 
     useEffect(() => {
-        if (!expiresIn || !accessToken) return;
-        const timer = setTimeout(() => {
+        //Set accesstoken to inital accessToken if we are currently in intial state
+        if (!accessToken) {
+            dispatch({
+                type: "SET_TOKEN",
+                accessToken: initialAccessToken
+            });
+        }
+        //If accessToken already exists, start the timer to get new refresh token right before expiration
+        else {
+            const timer = setTimeout(() => {
             axios.post("http://localhost:8000/refresh",
             {
                 refresh_token: refreshToken
             })
             .then(res => {
-                setNewAccessToken(res.data.access_token);
+                dispatch({
+                    type: "SET_TOKEN",
+                    accessToken: res.data.access_token
+                })
             })
             .catch(e => {
                 window.location = "/";
             });
-        }, 50000)
-    }, [newAccessToken]);
-
-    return newAccessToken;
+        }, (expiresIn - 100) * 1000)
+    }
+    }, [accessToken]);
+    return accessToken;
 }
+
