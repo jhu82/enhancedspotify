@@ -4,6 +4,7 @@ import { initWebPlayer } from 'utils/spotifyutils.js'
 export default function useWebPlayerSDK(accessToken) {
 
     const [deviceID, setDeviceID] = useState();
+    const [player, setPlayer] = useState();
 
     //To-do: add additional listeners, add additional error handling
     //To-do: scope out if "accessToken" is necessary for the second useEffect?
@@ -23,27 +24,28 @@ export default function useWebPlayerSDK(accessToken) {
         if (!accessToken) return;
         
         window.onSpotifyWebPlaybackSDKReady = async () => {
-            const player = new Spotify.Player({
+            const newPlayer = new Spotify.Player({
                 name: "My Player",
-                getOAuthToken: cb => {cb(accessToken)}
+                getOAuthToken: cb => {cb(accessToken)},
+                volume: 0.5
             });
             //Add listener for each error and redirects user to front page if issue is encountered
             //Todo: Add error handling page?
             const errors = ['initialization_error', 'authentication_error', 'account_error', 'playback_error'];
             errors.map(error => {
-                    player.on(error, ({message}) => {
+                    newPlayer.on(error, ({message}) => {
                         console.log(message);
-                        window.location = '/';
+                        //window.location = '/';
                     })
                 }
             )
-            player.addListener('ready', ({ device_id }) => {
+            newPlayer.addListener('ready', ({ device_id }) => {
                 setDeviceID(device_id);
             });
-            player.connect().then(success => console.log(success));
+            newPlayer.connect().then(success => success && setPlayer(newPlayer));
         }
     }, [accessToken])
 
-    return deviceID;
+    return [deviceID, player];
 
 }
