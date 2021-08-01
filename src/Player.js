@@ -3,32 +3,30 @@ import { useState, useEffect } from 'react';
 import useToken from './useToken';
 import useWebPlayer from './useWebPlayer';
 import { useStore } from './store/SpotifyContextStore.js';
-import axios from 'axios';
 import { transferPlayback} from 'utils/spotifyutils.js'
-import { Button, Slider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import PreviousSongButton from './PreviousSongButton';
+import TogglePlayButton from './TogglePlayButton';
+import NextSongButton from './NextSongButton';
+import VolumeControl from './VolumeControl';
+import TrackControl from './TrackControl';
+
 
 export default function Player({_accessToken, _refreshToken, _expiresIn}) {
 
     const [{ isPlaying, currentTrack }, dispatch] = useStore();
-    const [volume, setVolume] = useState(50);
     const accessToken = useToken(_accessToken, _refreshToken, _expiresIn);
     const [deviceID, player] = useWebPlayer(accessToken);
-    const [playlists, setPlaylists] = useState();
+    const [deviceReady, setDeviceReady] = useState(false);
 
     useEffect(async () => {
+        console.log("i am here");
         if (!deviceID || !player) return;
-        const response = await transferPlayback(accessToken, deviceID);
-        console.log(response);
-        const initialVolume = await player.getVolume();
-        setVolume(initialVolume * 100);
-        const {track_window: {current_track}} = await player.getCurrentState();
-        dispatch({
-            type: "SET_TRACK",
-            currentTrack: current_track
-        })
+        const {status} = await transferPlayback(accessToken, deviceID);
+        if (status === 204) {
+            setDeviceReady(true);
+        }
         player.addListener('player_state_changed', state => {
-            console.log(state);
             dispatch({
                 type: "SET_TRACK",
                 currentTrack: state.track_window.current_track
@@ -40,20 +38,15 @@ export default function Player({_accessToken, _refreshToken, _expiresIn}) {
         })
     }, [deviceID, player])
 
-    useEffect(async () => {
-        if (!player) return;
-        player.setVolume(volume / 100);
-    }, [volume, player])
-
-    const handlePlayButton = async () => {
-        if (!accessToken || !deviceID || !player) return;
+    const handleTogglePlayButton = async () => {
+        if (!deviceReady || !player) return;
         else {
             await player.togglePlay()
         }
     };
 
     const handlePrevSongButton = async () => {
-        if (!accessToken || !deviceID || !player) return;
+        if (!deviceReady || !player) return;
         else {
             const state = await player.getCurrentState()
             if (state.position >= 2000 || state.track_window.previous_tracks.length === 0) {
@@ -65,11 +58,15 @@ export default function Player({_accessToken, _refreshToken, _expiresIn}) {
     };
 
     const handleNextSongButton = async () => {
-        if (!accessToken || !deviceID || !player) return;
+        if (!deviceReady || !player) return;
         else {
             await player.nextTrack();
         }
     };
+
+    const handleProgressSlider = (event, newValue) => {
+        setTrackPosition(newValue);
+    }
 
     const useStyles = makeStyles({
         root: {
@@ -79,23 +76,20 @@ export default function Player({_accessToken, _refreshToken, _expiresIn}) {
 
     const classes = useStyles();
 
-    const handleVolumeSliderChange = (event, newValue) => {
-        setVolume(newValue);
-    }
-
     return(
-        <div className={classes.root}>
-            <Button color="primary" id="playButton" onClick={handlePlayButton}>{isPlaying ? "Pause" : "Play"}</Button>
-            <Button color="primary" id="prevSongButton" onClick={handlePrevSongButton}>Prev</Button>
-            <Button color="primary" id="nextSongButton" onClick={handleNextSongButton}>Next</Button>
-            <Slider 
-                value={volume}
-                onChange={handleVolumeSliderChange}
-                aria-labelledby="volume-slider"
+        <>
+            <PreviousSongButton onClick={handlePrevSongButton} />
+            <TogglePlayButton isPlaying={isPlaying} onClick={handleTogglePlayButton} />
+            <NextSongButton onClick={handleNextSongButton} />
+            <VolumeControl player={player} deviceReady={deviceReady} />
+            <TrackControl 
+                player={player}
+                isPlaying={isPlaying}
+                trackDuration={currentTrack === null ? 0 : currentTrack.duration_ms}
+                deviceReady={deviceReady}
             />
-            <h1>{volume}</h1>
             <h2>{currentTrack === null ? null : currentTrack.name}</h2>
-            <img src={currentTrack === null ? null: currentTrack.album.images[0].url} />
-        </div>
+            <img src={currentTrack === null ? null : currentTrack.album.images[0].url} />
+        </>
     )
 }

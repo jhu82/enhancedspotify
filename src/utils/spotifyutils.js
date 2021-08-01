@@ -31,3 +31,11 @@ export const getUserPlaylists = async (accessToken) => {
 export const playSong = (accessToken, songURI) => {
     
 }
+
+//convert ms into track time format, MM:SS
+export const msToMinutes = ms => {
+    const totalSeconds = Math.floor(ms / 1000);
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    return `${minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
+}

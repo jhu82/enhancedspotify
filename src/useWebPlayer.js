@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { initWebPlayer } from 'utils/spotifyutils.js'
 
 export default function useWebPlayerSDK(accessToken) {
 
