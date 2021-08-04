@@ -19,30 +19,44 @@ export default function useWebPlayerSDK(accessToken) {
 
     //Initialize Spotify player instance upon accessToken received
     //Todo: add additional listeners to handle potential errors
-    useEffect(() => {
+    useEffect(async () => {
         if (!accessToken) return;
-        
-        window.onSpotifyWebPlaybackSDKReady = async () => {
-            const newPlayer = new Spotify.Player({
-                name: "My Player",
-                getOAuthToken: cb => {cb(accessToken)},
-                volume: 0.5
+
+        async function waitForSpotifyWebPlaybackSDKToLoad () {
+            return new Promise(resolve => {
+              if (window.Spotify) {
+                resolve(window.Spotify);
+              } else {
+                window.onSpotifyWebPlaybackSDKReady = () => {
+                  resolve(window.Spotify);
+                };
+              }
             });
-            //Add listener for each error and redirects user to front page if issue is encountered
-            //Todo: Add error handling page?
-            const errors = ['initialization_error', 'authentication_error', 'account_error', 'playback_error'];
-            errors.map(error => {
-                    newPlayer.on(error, ({message}) => {
-                        console.log(message);
-                        //window.location = '/';
-                    })
-                }
-            )
-            newPlayer.addListener('ready', ({ device_id }) => {
-                setDeviceID(device_id);
-            });
-            newPlayer.connect().then(success => success && setPlayer(newPlayer));
-        }
+          };
+        const { Player } = await waitForSpotifyWebPlaybackSDKToLoad();
+        const newPlayer = new Spotify.Player({
+            name: "My Player",
+            getOAuthToken: cb => {
+                cb(accessToken);
+                console.log(accessToken);
+            },
+            volume: 0.5
+        });
+        //Add listener for each error and redirects user to front page if issue is encountered
+        //Todo: Add error handling page?
+        const errors = ['initialization_error', 'authentication_error', 'account_error', 'playback_error'];
+        errors.map(error => {
+                newPlayer.on(error, ({message}) => {
+                    console.log(message);
+                    //window.location = '/';
+                })
+            }
+        )
+        if (player) player.disconnect();
+        newPlayer.addListener('ready', ({ device_id }) => {
+            setDeviceID(device_id);
+        });
+        newPlayer.connect().then(success => success && setPlayer(newPlayer));
     }, [accessToken])
 
     return [deviceID, player];

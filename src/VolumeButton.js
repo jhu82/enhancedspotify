@@ -6,8 +6,8 @@ import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 
 export default function VolumeButton({volume, onClick}) {
     return (
-        <IconButton onClick={onClick}>
-            {volume === 0 ? <VolumeMuteIcon /> : <VolumeUpIcon /> }
+        <IconButton onClick={onClick} edge="end">
+            {volume === 0 ? <VolumeMuteIcon /> : <VolumeUpIcon color="action" /> }
         </IconButton>
     )
 }

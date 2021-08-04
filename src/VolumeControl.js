@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { Grid } from '@material-ui/core'
 import VolumeButton from './VolumeButton';
 import VolumeSlider from './VolumeSlider';
 
@@ -18,8 +19,6 @@ export default function VolumeControl({player, deviceReady}) {
         setVolume(newValue);
     }
     // Store current volume prior to muting, which is returned when the volume is unmuted.
-    // setVolumeBeforeMute will always set current volume, not 0 since state updates
-    // are batched in event handlers.
     const handleVolumeButtonClick = () => {
         if (volume > 0) {
             setVolumeBeforeMute(volume);
@@ -30,9 +29,13 @@ export default function VolumeControl({player, deviceReady}) {
     }
 
     return (
-        <div>
-            <VolumeButton volume={volume} onClick={handleVolumeButtonClick} />
-            <VolumeSlider volume={volume} onChange={handleVolumeSliderChange} />
-        </div>
+        <>
+            <Grid item xs={2}>
+                <VolumeButton volume={volume} onClick={handleVolumeButtonClick} />
+            </Grid>
+            <Grid item xs={6}>
+                <VolumeSlider volume={volume} onChange={handleVolumeSliderChange} />
+            </Grid>
+        </>
     )
 }

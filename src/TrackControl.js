@@ -9,19 +9,17 @@ export default function TrackControl({player, trackDuration, isPlaying, deviceRe
     const [trackInterval, setTrackInterval] = useState();
 
     useEffect(async () => {
-        console.log(deviceReady);
         if (!deviceReady || !player) return;
         if (isPlaying) {
             const interval = setInterval(async () => {
                 const { position } = await player.getCurrentState();
-                console.log("hello");
-                setTrackPosition(position);
+                if (position !== null) setTrackPosition(position);
             }, 500)
             setTrackInterval(interval);
         } else {
-            // clearInterval(trackInterval);
-            // const { position } = await player.getCurrentState();
-            // setTrackPosition(position);
+            clearInterval(trackInterval);
+            const { position } = await player.getCurrentState();
+            if (position !== null) setTrackPosition(position);
         }
         return () => clearInterval(trackInterval);
     }, [trackDuration, isPlaying])
@@ -38,13 +36,11 @@ export default function TrackControl({player, trackDuration, isPlaying, deviceRe
     }
 
     return (
-        <div>
-            <TrackSlider 
-                position={isTrackProgress ? trackPosition : seekPosition}
-                trackDuration={trackDuration}
-                onChange={handleTrackSliderChange}
-                onChangeCommitted={handleTrackSliderCommit}
-            />
-        </div>
+        <TrackSlider 
+            position={isTrackProgress ? trackPosition : seekPosition}
+            trackDuration={trackDuration}
+            onChange={handleTrackSliderChange}
+            onChangeCommitted={handleTrackSliderCommit}
+        />
     )
 }
