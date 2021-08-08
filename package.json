@@ -35,6 +35,7 @@
     "@babel/runtime": "^7.14.6",
     "@material-ui/core": "^4.12.2",
     "@material-ui/icons": "^4.11.2",
+    "@material-ui/styles": "^4.11.4",
     "axios": "^0.21.1",
     "cheerio": "^1.0.0-rc.10",
     "cors": "^2.8.5",

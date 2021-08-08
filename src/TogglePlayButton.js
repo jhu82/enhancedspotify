@@ -6,7 +6,8 @@ import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 export default function TogglePlayButton({isPlaying, onClick}) {
     return(
         <IconButton onClick={onClick}>
-            {isPlaying ? <PauseCircleFilledIcon fontSize="large" /> : <PlayCircleFilledIcon fontSize="large" />}
+            {isPlaying ? <PauseCircleFilledIcon fontSize="large" color="secondary" /> : 
+                         <PlayCircleFilledIcon fontSize="large" color="secondary" />}
         </IconButton>
     )
 } 

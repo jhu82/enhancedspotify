@@ -3,14 +3,15 @@ import { useState, useEffect } from 'react';
 import useToken from './useToken';
 import useWebPlayer from './useWebPlayer';
 import { useStore } from './store/SpotifyContextStore.js';
-import { transferPlayback} from 'utils/spotifyutils.js'
-import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Typography } from '@material-ui/core'
+import { transferPlayback} from 'utils/spotifyutils.js';
+import { createTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
 import PreviousSongButton from './PreviousSongButton';
 import TogglePlayButton from './TogglePlayButton';
 import NextSongButton from './NextSongButton';
 import VolumeControl from './VolumeControl';
 import TrackControl from './TrackControl';
+import './Player.css';
 
 
 export default function Player({_accessToken, _refreshToken, _expiresIn}) {
@@ -66,44 +67,44 @@ export default function Player({_accessToken, _refreshToken, _expiresIn}) {
         }
     };
 
-    const useStyles = makeStyles({
-        root: {
-            width: "100%",
-            height: 75,
-            background: 'white'
+    const theme = createTheme({
+        palette: {
+            primary: {
+                main: '#b3b3b3'
+            },
+            secondary: {
+                main: '#ffffff'
+            }
         }
     })
 
-    const classes = useStyles();
-
     return(
-        <div className={classes.root}>
-            <Grid container direction="row" justifyContent="center" alignItems="center">
-                <Grid container direction="row" justifyContent="center" item xs={2}>
-                    <Grid item>
-                        <img src={currentTrack && currentTrack.album.images[0].url} height="100" />
-                    </Grid>
-                    <Grid item>
-                        <Typography align="center">
-                            {currentTrack && currentTrack.name}
-                        </Typography>
-                    </Grid>
-                </Grid>
-                <Grid container justifyContent="center" item xs={8}>
-                    <PreviousSongButton onClick={handlePrevSongButton} />
-                    <TogglePlayButton isPlaying={isPlaying} onClick={handleTogglePlayButton} />
-                    <NextSongButton onClick={handleNextSongButton} />
+        <ThemeProvider theme={theme} >
+            <div className="footer">
+                <div className="footer-left">
+                    <img src={currentTrack && currentTrack.album.images[0].url} height="100" />
+                    <div>
+                        <h4>{currentTrack && currentTrack.name}</h4>
+                        <p>{currentTrack && currentTrack.artists.map(artist => artist.name).join(", ")}</p>
+                    </div>
+                </div>
+                <div className="footer-center">
+                    <div>
+                        <PreviousSongButton onClick={handlePrevSongButton} />
+                        <TogglePlayButton isPlaying={isPlaying} onClick={handleTogglePlayButton} />
+                        <NextSongButton onClick={handleNextSongButton} />
+                    </div>
                     <TrackControl 
                         player={player}
                         isPlaying={isPlaying}
                         trackDuration={currentTrack && currentTrack.duration_ms}
                         deviceReady={deviceReady}
                     />
-                </Grid>
-                <Grid container item justifyContent="center" alignItems="center" xs={2}>
+                </div>
+                <div className="footer-right">
                     <VolumeControl player={player} deviceReady={deviceReady} />
-                </Grid>
-            </Grid>
-        </div>
+                </div>
+            </div>
+        </ThemeProvider>
     )
 }

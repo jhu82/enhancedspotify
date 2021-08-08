@@ -30,12 +30,8 @@ export default function VolumeControl({player, deviceReady}) {
 
     return (
         <>
-            <Grid item xs={2}>
-                <VolumeButton volume={volume} onClick={handleVolumeButtonClick} />
-            </Grid>
-            <Grid item xs={6}>
-                <VolumeSlider volume={volume} onChange={handleVolumeSliderChange} />
-            </Grid>
+            <VolumeButton volume={volume} onClick={handleVolumeButtonClick} />
+            <VolumeSlider volume={volume} onChange={handleVolumeSliderChange} />
         </>
     )
 }

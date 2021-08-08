@@ -1,6 +1,8 @@
 import React from 'react';
 import {useState, useEffect} from 'react';
 import TrackSlider from './TrackSlider';
+import { msToMinutes } from 'utils/spotifyutils'
+import './TrackControl.css'
 
 export default function TrackControl({player, trackDuration, isPlaying, deviceReady}) {
     const [trackPosition, setTrackPosition] = useState(0);
@@ -36,11 +38,15 @@ export default function TrackControl({player, trackDuration, isPlaying, deviceRe
     }
 
     return (
-        <TrackSlider 
-            position={isTrackProgress ? trackPosition : seekPosition}
-            trackDuration={trackDuration}
-            onChange={handleTrackSliderChange}
-            onChangeCommitted={handleTrackSliderCommit}
-        />
+        <div className="track-control">
+            <p>{msToMinutes(isTrackProgress ? trackPosition : seekPosition)}</p>
+            <TrackSlider 
+                position={isTrackProgress ? trackPosition : seekPosition}
+                trackDuration={trackDuration}
+                onChange={handleTrackSliderChange}
+                onChangeCommitted={handleTrackSliderCommit}
+            />
+            <p>{msToMinutes(trackDuration)}</p>
+        </div>
     )
 }

@@ -5,7 +5,7 @@ import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 export default function PreviousSongButton({ onClick }) {
     return(
         <IconButton onClick={onClick}>
-            <SkipPreviousIcon fontSize="medium" />
+            <SkipPreviousIcon fontSize="medium" color="primary" />
         </IconButton>
     )
 }
