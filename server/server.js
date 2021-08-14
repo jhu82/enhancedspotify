@@ -26,6 +26,7 @@ app.get('/login', (req, res) => {
     }));
 })
 
+//TODO: convert to try-catch block for consistency
 app.get('/callback', async(req, res) => {
     const code = req.query.code || null;
     const form = {
@@ -59,6 +60,7 @@ app.get('/callback', async(req, res) => {
     }))
 })
 
+//TODO: convert to try-catch block for consistency
 app.post('/refresh', async(req, res) => {
     const refresh_token = req.body.refresh_token;    
     const form = {
@@ -85,13 +87,31 @@ app.post('/refresh', async(req, res) => {
     })
 })
 
-//TO-DO: Add error handling
-app.post('/search', async(req, res) => {
-    const url = `https://www.azlyrics.com/lyrics/${req.body.artist}/${req.body.song}.html`;
-    const { data } = await axios.get(url);
-    const $ = await cheerio.load(data);
-    console.log($.html());
-    res.send($.html());
+
+app.post('/lyrics', async(req, res) => {
+    let artist_query = req.body.artist.toLowerCase();
+    let song_query = req.body.song.toLowerCase();
+
+    //Case: Artist name begins with "The ", need to eliminate from beginning of artist query.
+    if (artist_query.startsWith('the ')) {
+        artist_query = artist_query.substring(4);
+    }
+    //Case: Song name contains (feat...) or (with...), need to eliminate the substring from the song query.
+    if (song_query.search(/\(feat|\(with/) !== -1) {
+        const index = song_query.search(/\(feat|\(with/);
+        song_query = song_query.substring(0, index);
+    }
+    //Eliminate whitespace and other non alphanumeric values from artist and song names
+    artist_query = artist_query.replace(/[^0-9a-z]/gi, '');
+    song_query = song_query.replace(/[^0-9a-z]/gi, '');
+    try {
+        const url = `https://www.azlyrics.com/lyrics/${artist_query}/${song_query}.html`;
+        const { data } = await axios.get(url);
+        const $ = await cheerio.load(data);
+        res.send($('div.container.main-page div:not([class])').html());
+    } catch(e) {
+        res.send('Lyrics not available.')
+    }
 })
 
 app.listen(8000);

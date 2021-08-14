@@ -1,0 +1,17 @@
+#dashboard {
+    display: grid;
+    grid-template-rows: auto 100px;
+    grid-template-columns: 300px auto 425px;
+    height: 100vh;
+    overflow: hidden;
+    font-family: Helvetica, sans-serif;
+}
+
+/* Note that this is not supported on Firefox, need separate implementation */
+::-webkit-scrollbar {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #b3b3b3;
+}
