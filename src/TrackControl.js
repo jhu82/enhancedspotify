@@ -38,7 +38,7 @@ export default function TrackControl({player, trackDuration, isPlaying, deviceRe
     }
 
     return (
-        <div id={styles['track-control']}>
+        <div className={styles['track-control']}>
             <p>{msToMinutes(isTrackProgress ? trackPosition : seekPosition)}</p>
             <TrackSlider 
                 position={isTrackProgress ? trackPosition : seekPosition}

@@ -1,8 +1,8 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Grid } from '@material-ui/core'
 import VolumeButton from './VolumeButton';
 import VolumeSlider from './VolumeSlider';
+import styles from './VolumeControl.module.css'
 
 export default function VolumeControl({player, deviceReady}) {
 
@@ -29,9 +29,13 @@ export default function VolumeControl({player, deviceReady}) {
     }
 
     return (
-        <>
-            <VolumeButton volume={volume} onClick={handleVolumeButtonClick} />
-            <VolumeSlider volume={volume} onChange={handleVolumeSliderChange} />
-        </>
+        <div className={styles["volume-control"]}>
+            <div className={styles["volume-button"]}>
+                <VolumeButton volume={volume} onClick={handleVolumeButtonClick} />
+            </div>
+            <div className={styles["volume-slider"]}>
+                <VolumeSlider volume={volume} onChange={handleVolumeSliderChange} />
+            </div>
+        </div>
     )
 }

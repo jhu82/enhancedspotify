@@ -4,25 +4,25 @@ import { useState, useEffect } from 'react';
 import parse from 'html-react-parser';
 import styles from './LyricsSidebar.module.css'
 
-export default function LyricsSidebar({ currentTrack }) {
+export default function LyricsSidebar({ trackURI, artist, trackName }) {
 
     const [lyrics, setLyrics] = useState("");
 
     useEffect(() => {
-        if (!currentTrack) return;
+        if (!trackURI) return;
         const query = {
-            artist: currentTrack.artists[0].name,
-            song: currentTrack.name
+            artist: artist,
+            song: trackName
         }
         axios.post('http://localhost:8000/lyrics', query)
              .then(response => setLyrics(response.data))
              .catch(e => console.log(e));
-    }, [currentTrack]);
+    }, [trackURI]);
 
     return (
         <div id={styles['lyrics-sidebar']}>
-            <h1>{currentTrack && currentTrack.artists[0].name}</h1>
-            <h1>{currentTrack && currentTrack.name}</h1>
+            <h1>{artist}</h1>
+            <h1>{trackName}</h1>
             <div>{parse(lyrics)}</div>
         </div>
     )

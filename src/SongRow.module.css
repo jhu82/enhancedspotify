@@ -1,0 +1,9 @@
+.song-row {
+    composes: table-row from './TableRow.module.css';
+    border-radius: 5px;
+}
+
+.song-row:hover {
+    filter: brightness(130%);
+    background-color: #282828;
+}

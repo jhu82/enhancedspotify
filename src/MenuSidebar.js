@@ -1,13 +1,16 @@
 import React from 'react';
 import styles from './MenuSidebar.module.css';
+import UserPlaylists from './UserPlaylists';
+import spotifyLogo from './assets/spotifylogo.png';
 
-export default function MenuSidebar() {
+export default function MenuSidebar({accessToken}) {
     return (
-        <div id={styles['menu-sidebar']}>
-            <img id={styles['spotify-logo']}
-                 src="./assets/spotifylogo.png" 
+        <div className={styles['menu-sidebar']}>
+            <img className={styles['spotify-logo']}
+                 src={spotifyLogo}
                  alt="Spotify Icon" 
             />
+            <UserPlaylists accessToken={accessToken} />
         </div>
     )
 }

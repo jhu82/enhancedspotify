@@ -1,0 +1,43 @@
+.table-row {
+    display: flex;
+    flex-direction: row;
+    width: 98%;
+    margin: 5px 1% 5px 1%;
+}
+
+.table-row > div {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    overflow-x: hidden;
+}
+
+.table-row p {
+    margin: 0;
+    color: #b3b3b3;
+    font-size: small;
+    width: 100%;    
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+}
+
+.table-cell-1 {
+    flex: 0 0 2.5%;
+    text-align: end;
+}
+
+.table-cell-2 {
+    flex: 1.5 0 15%;
+}
+
+.table-cell-3 {
+    flex: 1 0 15%;
+}
+
+.table-cell-4 {
+    flex: 0 1 15%;
+}
+
+.table-cell-5 {
+    flex: 0 1 15%;
+}

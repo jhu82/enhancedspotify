@@ -1,7 +1,8 @@
-#track-control {
+.track-control {
     display: flex;
-    width: 60%;
+    width: 65%;
     flex: 1 1 auto;
     align-items: center;
     column-gap: 10px;
+    padding-bottom: 2px;
 }

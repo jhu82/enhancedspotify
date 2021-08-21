@@ -5,6 +5,7 @@ import TogglePlayButton from './TogglePlayButton';
 import NextSongButton from './NextSongButton';
 import VolumeControl from './VolumeControl';
 import TrackControl from './TrackControl';
+import TrackMainInfo from './TrackMainInfo';
 import styles from './Footer.module.css';
 
 export default function Footer({player, deviceReady, currentTrack, isPlaying}) {
@@ -36,13 +37,13 @@ export default function Footer({player, deviceReady, currentTrack, isPlaying}) {
     };
 
     return (
-        <div id={styles['footer']}>
+        <footer id={styles['footer']}>
             <div id={styles['footer-left']}>
-                <img src={currentTrack && currentTrack.album.images[0].url} height="100" />
-                <div>
-                    <h4>{currentTrack && currentTrack.name}</h4>
-                    <p>{currentTrack && currentTrack.artists.map(artist => artist.name).join(", ")}</p>
-                </div>
+                <TrackMainInfo 
+                    imgSRC={currentTrack && currentTrack.album.images[0].url}
+                    trackName={currentTrack && currentTrack.name}
+                    artists={currentTrack && currentTrack.artists.map(artist => artist.name).join(", ")}
+                />
             </div>
             <div id={styles['footer-center']}>
                 <div>
@@ -60,6 +61,6 @@ export default function Footer({player, deviceReady, currentTrack, isPlaying}) {
             <div id={styles['footer-right']}>
                 <VolumeControl player={player} deviceReady={deviceReady} />
             </div>
-        </div>
+        </footer>
     )
 }

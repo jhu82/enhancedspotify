@@ -1,0 +1,8 @@
+.mainview {
+    grid-row: 1 / 2;
+    grid-column: 2 / 3;
+    display: flex;
+    flex-direction: column;
+    background-color: #121212;
+    overflow-y: scroll;
+}

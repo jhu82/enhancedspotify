@@ -1,0 +1,19 @@
+.user-playlists {
+    height: 60%;
+    overflow-y: scroll;
+    justify-self: flex-end;
+    border-top: 1px solid;
+    border-top-color: #b3b3b3;
+    margin-top: auto;
+}
+
+.playlist-row {
+    font-size: 14px;
+    font-family: inherit;
+    padding: 0.5rem;
+}
+
+.playlist-row > a {
+    text-decoration: none;
+    color: #b3b3b3;
+}

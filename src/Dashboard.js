@@ -9,7 +9,9 @@ import { ThemeProvider } from '@material-ui/styles';
 import Footer from './Footer';
 import LyricsSidebar from './LyricsSidebar';
 import MenuSidebar from './MenuSidebar';
+import MainView from './MainView';
 import styles from './Dashboard.module.css';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 export default function Dashboard({_accessToken, _refreshToken, _expiresIn}) {
 
@@ -24,7 +26,9 @@ export default function Dashboard({_accessToken, _refreshToken, _expiresIn}) {
         if (status === 204) {
             setDeviceReady(true);
         }
+        console.log(player);
         player.addListener('player_state_changed', state => {
+            console.log(state.track_window.current_track)
             if (state !== null) {
                 dispatch({
                     type: "SET_TRACK",
@@ -51,9 +55,15 @@ export default function Dashboard({_accessToken, _refreshToken, _expiresIn}) {
 
     return(
         <ThemeProvider theme={theme}>
-            <div id={styles['dashboard']}> 
-                <MenuSidebar />
-                <LyricsSidebar currentTrack={currentTrack} />
+            <div className={styles['dashboard']}>
+                <Router>
+                    <MenuSidebar accessToken={accessToken} />
+                    <MainView accessToken={accessToken} />
+                </Router> 
+                <LyricsSidebar trackURI={currentTrack && currentTrack.uri}  
+                               artist={currentTrack && currentTrack.artists[0].name}
+                               trackName={currentTrack && currentTrack.name}
+                />
                 <Footer player={player} 
                         deviceReady={deviceReady} 
                         currentTrack={currentTrack}

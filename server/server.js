@@ -46,7 +46,6 @@ app.get('/callback', async(req, res) => {
             access_token = response.data.access_token;
             expires_in = response.data.expires_in;
             refresh_token = response.data.refresh_token;
-            console.log(access_token);
         })
         .catch(err => {
             console.log(err)
