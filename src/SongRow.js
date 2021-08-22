@@ -2,11 +2,11 @@ import React from 'react';
 import styles from './SongRow.module.css';
 import TableRow from './TableRow.js';
 import TrackMainInfo from './TrackMainInfo.js';
-import { msToMinutes } from './utils/spotifyutils';
+import { msToMinutes, playTrack } from './utils/spotifyutils';
 
-export default function SongRow({ index, track, addedAt }) {
+export default function SongRow({ accessToken, index, track, addedAt, context }) {
     return (
-        <div className={styles["song-row"]}>
+        <div className={styles["song-row"]} onDoubleClick={() => playTrack(accessToken, context, index - 1)}>
             <TableRow
                 cell1={
                     <p>{index}</p>

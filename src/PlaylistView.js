@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getPlaylistInfo, stringToLocaleDate } from './utils/spotifyutils';
 import SongRow from './SongRow.js'
+import TableHeader from './TableHeader.js'
 import defaultPlaylistImage from "./assets/defaultplaylistimg.png";
 
 export default function PlaylistView({ accessToken }) {
@@ -20,7 +21,14 @@ export default function PlaylistView({ accessToken }) {
                       height="250" 
             />
             <div>
-                {currentPlaylist && currentPlaylist.tracks.items.map((item, index) => <SongRow track={item.track} index={index + 1} addedAt={stringToLocaleDate(item.added_at)} />)}
+                <TableHeader />
+                {currentPlaylist && currentPlaylist.tracks.items.map((item, index) => <SongRow 
+                                                                                               accessToken={accessToken}
+                                                                                               track={item.track} 
+                                                                                               index={index + 1} 
+                                                                                               addedAt={stringToLocaleDate(item.added_at)} 
+                                                                                               context={`spotify:playlist:${id}`}
+                                                                                        />)}
             </div>
         </div>
     )

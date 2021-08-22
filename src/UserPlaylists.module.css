@@ -17,3 +17,7 @@
     text-decoration: none;
     color: #b3b3b3;
 }
+
+.playlist-row:hover {
+    filter: brightness(130%);
+}

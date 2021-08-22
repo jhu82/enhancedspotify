@@ -9,7 +9,8 @@ export const transferPlayback = async (accessToken, deviceID) => {
     try {
         const response = await axios.put(url, 
                                         {device_ids: [deviceID]}, 
-                                        {headers: {Authorization: `Bearer ${accessToken}`}});
+                                        {headers: {Authorization: `Bearer ${accessToken}`}
+                                        });
         return response;
     } catch(e) {
         console.log(e);
@@ -44,8 +45,19 @@ export const getPlaylistInfo = async (accessToken, playlistID) => {
     }
 }
 
-export const playSong = (accessToken, songURI) => {
-    
+export const playTrack = async (accessToken, context, offset) => {
+    const url = API_URL + "/me/player/play";
+    try {
+        await axios.put(url, 
+                        {context_uri: context, 
+                         offset: {
+                             position: offset
+                        }},
+                        {headers: {Authorization: `Bearer ${accessToken}`}
+                        });
+    } catch(e) {
+        console.log(e);
+    }
 }
 
 //convert ms into track time format, M:SS

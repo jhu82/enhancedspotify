@@ -1,0 +1,7 @@
+.table-header {
+    composes: table-row from './TableRow.module.css';
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid;
+    border-bottom-color: #b3b3b3;
+}
