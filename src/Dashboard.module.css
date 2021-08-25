@@ -10,10 +10,10 @@
 /* Note that this is not supported on Firefox, need separate implementation */
 ::-webkit-scrollbar {
     background: transparent;
-    width: 10px;
+    width: 0.5rem;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #b3b3b3;
-    border-radius: 5px;
+    background: #575757;
+    border-radius: 0.34rem;
 }

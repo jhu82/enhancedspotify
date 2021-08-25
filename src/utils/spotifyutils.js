@@ -49,7 +49,7 @@ export const playTrack = async (accessToken, context, offset) => {
     const url = API_URL + "/me/player/play";
     try {
         await axios.put(url, 
-                        {context_uri: context, 
+                        {context_uri: context,
                          offset: {
                              position: offset
                         }},

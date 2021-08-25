@@ -3,6 +3,7 @@
     flex-direction: row;
     width: 98%;
     margin: 5px 1%;
+    column-gap: 0.8rem;
 }
 
 .table-row > div {

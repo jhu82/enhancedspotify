@@ -1,0 +1,30 @@
+.playlist-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.playlist-heading {
+    display: flex;
+    flex-direction: row;
+    font-size: 1.75rem;
+}
+
+.playlist-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.playlist-title > h1, h6 {
+    margin: 10px;
+}
+
+.playlist-image {
+    padding: 30px;
+    filter: drop-shadow(0 0 1rem #121212);
+}
+
+.playlist-image > img {
+    width: 250px;
+    height: 250px;
+}

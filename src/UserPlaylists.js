@@ -15,7 +15,7 @@ export default function UserPlaylists({ accessToken }) {
     return (
         <div className={styles["user-playlists"]}>
             {playlists && playlists.map(playlist => <div key={playlist.id} className={styles["playlist-row"]}>
-                                                         <Link to={`/playlists/${playlist.id}`}>{playlist.name}</Link>
+                                                        <Link to={`/playlists/${playlist.id}`}>{playlist.name}</Link>
                                                     </div>
                                         )}
         </div>

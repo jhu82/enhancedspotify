@@ -28,7 +28,7 @@ export default function Dashboard({_accessToken, _refreshToken, _expiresIn}) {
         }
         console.log(player);
         player.addListener('player_state_changed', state => {
-            console.log(state.track_window.current_track)
+            console.log(state)
             if (state !== null) {
                 dispatch({
                     type: "SET_TRACK",

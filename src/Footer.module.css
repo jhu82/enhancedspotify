@@ -3,6 +3,7 @@
     grid-row: 2 /3;
     grid-column: 1 / 4;
     height: 90px;
+    color: #b3b3b3;
     background-color: #201c1c;
 }
 
@@ -12,6 +13,10 @@
     align-items: center;
     width: 25%;
     column-gap: 10px;
+}
+
+#footer-left h4 {
+    color: #ffffff;
 }
 
 #footer-center {
