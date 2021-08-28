@@ -20,9 +20,9 @@ export default function MenuSidebar({accessToken}) {
             <div className={styles['menu-icons']}>
                 <MenuItem linkTo="/" icon={<HomeOutlinedIcon />} text="Home" />
                 <MenuItem linkTo="/" icon={<SearchIcon />} text="Search" />
-                <MenuItem linkTo="/" icon={<FavoriteBorderOutlinedIcon />} text="Liked Songs" />
-                <MenuItem linkTo="/" icon={<ShowChartOutlinedIcon />} text="Top Tracks" />
-                <MenuItem linkTo="/" icon={<HistoryIcon />} text="Recently Played" />
+                <MenuItem linkTo="/saved" icon={<FavoriteBorderOutlinedIcon />} text="Liked Songs" />
+                <MenuItem linkTo="/toptracks" icon={<ShowChartOutlinedIcon />} text="Top Tracks" />
+                <MenuItem linkTo="/recent" icon={<HistoryIcon />} text="Recently Played" />
             </div>
             <UserPlaylists accessToken={accessToken} />
         </div>

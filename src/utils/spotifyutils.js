@@ -17,44 +17,31 @@ export const transferPlayback = async (accessToken, deviceID) => {
     }
 }
 
-export const getUserInfo = async (accessToken) => {
-
-}
-
-export const getUserPlaylists = async (accessToken) => {
-    const url = API_URL + "/me/playlists";
-    try {
-        const { data } = await axios.get(url, 
-                                        {
-                                         params: {limit: 50, offset: 0},
-                                         headers: {Authorization: `Bearer ${accessToken}`}
-                                        });
-        return data.items;
-    } catch(e) {
-        console.log(e);
-    }
-}
-
-export const getPlaylistInfo = async (accessToken, playlistID) => {
-    const url = API_URL + "/playlists/" + playlistID;
-    try {
-        const { data } = await axios.get(url, {headers: {Authorization: `Bearer ${accessToken}`}});
-        return data;
-    } catch(e) {
-        console.log(e);
-    }
-}
-
 export const playTrack = async (accessToken, context, offset) => {
     const url = API_URL + "/me/player/play";
     try {
         await axios.put(url, 
-                        {context_uri: context,
+                        {
+                         context_uri: context,
                          offset: {
                              position: offset
                         }},
                         {headers: {Authorization: `Bearer ${accessToken}`}
                         });
+    } catch(e) {
+        console.log(e);
+    }
+}
+
+export const getPlaylistsFromCategory = async (accessToken, category, limit) => {
+    const url = API_URL + `/browse/categories/${category}/playlists`;
+    try {
+        const { data } = await axios.get(url,
+                        {
+                            params: {limit: limit},
+                            headers: {Authorization: `Bearer ${accessToken}`}
+                        });
+        return data.items;
     } catch(e) {
         console.log(e);
     }

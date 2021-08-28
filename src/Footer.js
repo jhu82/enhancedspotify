@@ -37,15 +37,15 @@ export default function Footer({player, deviceReady, currentTrack, isPlaying}) {
     };
 
     return (
-        <footer id={styles['footer']}>
-            <div id={styles['footer-left']}>
+        <footer className={styles['footer']}>
+            <div className={styles['footer-left']}>
                 <TrackMainInfo 
                     imgSRC={currentTrack && currentTrack.album.images[0].url}
                     trackName={currentTrack && currentTrack.name}
                     artists={currentTrack && currentTrack.artists.map(artist => artist.name).join(", ")}
                 />
             </div>
-            <div id={styles['footer-center']}>
+            <div className={styles['footer-center']}>
                 <div>
                     <PreviousSongButton onClick={handlePrevSongButton} />
                     <TogglePlayButton isPlaying={isPlaying} onClick={handleTogglePlayButton} />
@@ -58,7 +58,7 @@ export default function Footer({player, deviceReady, currentTrack, isPlaying}) {
                     deviceReady={deviceReady}
                 />
             </div>
-            <div id={styles['footer-right']}>
+            <div className={styles['footer-right']}>
                 <VolumeControl player={player} deviceReady={deviceReady} />
             </div>
         </footer>

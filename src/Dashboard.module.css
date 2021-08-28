@@ -5,9 +5,10 @@
     height: 100vh;
     overflow: hidden;
     font-family: Helvetica, sans-serif;
+    scrollbar-color: #575757 transparent; /* For FireFox */
 }
 
-/* Note that this is not supported on Firefox, need separate implementation */
+/* For Chrome, Safari */
 ::-webkit-scrollbar {
     background: transparent;
     width: 0.5rem;

@@ -6,9 +6,9 @@ import { useStore } from './store/SpotifyContextStore.js';
 import { useEffect, useState } from 'react';
 import { msToMinutes, playTrack } from './utils/spotifyutils';
 
-export default function SongRow({ accessToken, index, track, addedAt, context }) {
+export default function SongRow({ index, track, addedAt, context }) {
 
-    const [{ currentTrack }] = useStore();
+    const [{ accessToken, currentTrack }] = useStore();
     const [className, setClassName] = useState("song-row");
 
     useEffect(() => {

@@ -20,6 +20,17 @@ export default function Dashboard({_accessToken, _refreshToken, _expiresIn}) {
     const [deviceID, player] = useWebPlayer(accessToken);
     const [deviceReady, setDeviceReady] = useState(false);
 
+    const theme = createTheme({
+        palette: {
+            primary: {
+                main: '#b3b3b3'
+            },
+            secondary: {
+                main: '#ffffff'
+            }
+        }
+    })
+
     useEffect(async () => {
         if (!deviceID || !player) return;
         const {status} = await transferPlayback(accessToken, deviceID);
@@ -28,7 +39,6 @@ export default function Dashboard({_accessToken, _refreshToken, _expiresIn}) {
         }
         console.log(player);
         player.addListener('player_state_changed', state => {
-            console.log(state)
             if (state !== null) {
                 dispatch({
                     type: "SET_TRACK",
@@ -41,17 +51,6 @@ export default function Dashboard({_accessToken, _refreshToken, _expiresIn}) {
             }
         })
     }, [deviceID, player])
-
-    const theme = createTheme({
-        palette: {
-            primary: {
-                main: '#b3b3b3'
-            },
-            secondary: {
-                main: '#ffffff'
-            }
-        }
-    })
 
     return(
         <ThemeProvider theme={theme}>

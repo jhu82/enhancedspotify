@@ -1,17 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { getUserPlaylists } from './utils/spotifyutils';
+import React from 'react';
+import useFetch from './useFetch.js';
 import styles from './UserPlaylists.module.css';
 import { Link } from 'react-router-dom';
 
-export default function UserPlaylists({ accessToken }) {
+export default function UserPlaylists() {
 
-    const [playlists, setPlaylists] = useState();
-
-    useEffect(async () => {
-        if (!accessToken) return;
-        const _playlists = await getUserPlaylists(accessToken);
-        setPlaylists(_playlists);
-    }, [accessToken])
+    const {items: playlists} = useFetch("https://api.spotify.com/v1/me/playlists", {limit: 50, offset: 0}) || {};
+    
     return (
         <div className={styles["user-playlists"]}>
             {playlists && playlists.map(playlist => <div key={playlist.id} className={styles["playlist-row"]}>

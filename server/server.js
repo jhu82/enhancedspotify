@@ -26,7 +26,6 @@ app.get('/login', (req, res) => {
     }));
 })
 
-//TODO: convert to try-catch block for consistency
 app.get('/callback', async(req, res) => {
     const code = req.query.code || null;
     const form = {
@@ -59,7 +58,6 @@ app.get('/callback', async(req, res) => {
     }))
 })
 
-//TODO: convert to try-catch block for consistency
 app.post('/refresh', async(req, res) => {
     const refresh_token = req.body.refresh_token;    
     const form = {
