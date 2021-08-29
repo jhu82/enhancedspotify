@@ -93,9 +93,9 @@ app.post('/lyrics', async(req, res) => {
     if (artist_query.startsWith('the ')) {
         artist_query = artist_query.substring(4);
     }
-    //Case: Song name contains (feat...) or (with...), need to eliminate the substring from the song query.
-    if (song_query.search(/\(feat|\(with/) !== -1) {
-        const index = song_query.search(/\(feat|\(with/);
+    //Case: Song name contains (feat...) or (with...) " - ", need to eliminate the substring from the song query.
+    if (song_query.search(/\(feat|\(with| - /) !== -1) {
+        const index = song_query.search(/\(feat|\(with| - /);
         song_query = song_query.substring(0, index);
     }
     //Eliminate whitespace and other non alphanumeric values from artist and song names

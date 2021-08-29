@@ -8,7 +8,7 @@ export default function TableView(props) {
 
     return (
         <div className={styles["tableview-container"]}>
-        <div className={styles["tableview-heading"]} style={{background: `linear-gradient(to bottom, ${palette.darkMuted}, #121212)`}}>
+        <div className={styles["tableview-heading"]} style={{background: `linear-gradient(to bottom, ${palette.darkMuted}, 60%, #121212)`}}>
             <div className={styles["tableview-image"]}>
                 <img src={props.image} />
             </div>

@@ -1,5 +1,4 @@
 //Creating a central utility file, for wrapper functions to Spotify API calls. To improve readability and ease of maintenance, while seprating from component code.
-//TODO: For all "get" functions, simplify to a single function with a keyword to map to the specific URL. Although need to weigh tradeoff of just directly calling axios
 import axios from 'axios';
 
 const API_URL = "https://api.spotify.com/v1"
@@ -17,7 +16,7 @@ export const transferPlayback = async (accessToken, deviceID) => {
     }
 }
 
-export const playTrack = async (accessToken, context, offset) => {
+export const playTrackFromContext = async (accessToken, context, offset) => {
     const url = API_URL + "/me/player/play";
     try {
         await axios.put(url, 
@@ -33,15 +32,30 @@ export const playTrack = async (accessToken, context, offset) => {
     }
 }
 
-export const getPlaylistsFromCategory = async (accessToken, category, limit) => {
-    const url = API_URL + `/browse/categories/${category}/playlists`;
+export const playTrackFromURI = async (accessToken, URIs, offset) => {
+    const url = API_URL + "/me/player/play";
     try {
-        const { data } = await axios.get(url,
+        await axios.put(url, 
                         {
-                            params: {limit: limit},
-                            headers: {Authorization: `Bearer ${accessToken}`}
+                         uris: URIs,
+                         offset: {
+                             position: offset
+                        }},
+                        {headers: {Authorization: `Bearer ${accessToken}`}
                         });
-        return data.items;
+    } catch(e) {
+        console.log(e);
+    }
+}
+
+export const search = async (accessToken, query, type) => {
+    const url = API_URL + 
+                "/search?q=" + 
+                query +
+                `&type=${type}`;
+    try {
+        const res = await axios.get(url, {headers: {Authorization: `Bearer ${accessToken}`}})
+        return res.data;
     } catch(e) {
         console.log(e);
     }
@@ -55,6 +69,7 @@ export const msToMinutes = ms => {
     return `${minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
 }
 
+//convert UTC to readable locale format, MM/DD/YYYY
 export const stringToLocaleDate = (string, locale) => {
     try {
         return new Date(string).toLocaleDateString(locale);

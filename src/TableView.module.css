@@ -1,6 +1,8 @@
 .tableview-container {
     display: flex;
     flex-direction: column;
+    margin: 0;
+    padding: 0;
 }
 
 .tableview-heading {
@@ -16,7 +18,7 @@
 }
 
 .tableview-title > h1, h6 {
-    margin: 10px;
+    margin: 0.75rem;
 }
 
 .tableview-image {

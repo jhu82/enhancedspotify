@@ -1,13 +1,18 @@
 import React from 'react';
-import useFetch from './useFetch.js';
-import SongRow from './SongRow.js'
-import TableHeader from './TableHeader.js'
+import useFetch from './useFetch';
+import { useStore } from './store/SpotifyContextStore';
+import SongRow from './SongRow'
+import TableHeader from './TableHeader'
+import TableView from './TableView';
+import { playTrackFromURI } from './utils/spotifyutils';
 import topTracksCover from "./assets/toptrackscover.png";
-import TableView from './TableView.js';
+
 
 export default function TopTracksView() {
 
-    const { items: currentPlaylist } = useFetch("https://api.spotify.com/v1/me/top/tracks", {time_range: "short_term", limit: 50, offset: 0}) || {};
+    const [{ accessToken }] = useStore();
+    const URL = "https://api.spotify.com/v1/me/top/tracks";
+    const { items: currentPlaylist } = useFetch(URL, {time_range: "short_term", limit: 50, offset: 0}) || {};
     
     return(
         <TableView 
@@ -18,7 +23,7 @@ export default function TopTracksView() {
                                                                                 key={item.id}
                                                                                 track={item} 
                                                                                 index={index + 1} 
-                                                                                context={"top"}
+                                                                                handleDoubleClick={() => playTrackFromURI(accessToken, [item.uri], 0)}
                                                                             />)}
         />   
     )

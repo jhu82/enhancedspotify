@@ -13,7 +13,6 @@ export default function useFetch(url, params) {
                                         headers: {Authorization: `Bearer ${accessToken}`}
                                     })
         setResponse(data);
-        console.log("yes");
     }, [accessToken, url])
 
     return response;

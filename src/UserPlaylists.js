@@ -1,5 +1,5 @@
 import React from 'react';
-import useFetch from './useFetch.js';
+import useFetch from './useFetch';
 import styles from './UserPlaylists.module.css';
 import { Link } from 'react-router-dom';
 

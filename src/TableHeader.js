@@ -1,5 +1,5 @@
 import React from 'react';
-import TableRow from './TableRow.js';
+import TableRow from './TableRow';
 import styles from 'TableHeader.module.css';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 

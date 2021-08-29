@@ -1,14 +1,14 @@
 import React from 'react';
 import styles from './SongRow.module.css';
-import TableRow from './TableRow.js';
-import TrackMainInfo from './TrackMainInfo.js';
-import { useStore } from './store/SpotifyContextStore.js';
+import TableRow from './TableRow';
+import TrackMainInfo from './TrackMainInfo';
+import { useStore } from './store/SpotifyContextStore';
 import { useEffect, useState } from 'react';
-import { msToMinutes, playTrack } from './utils/spotifyutils';
+import { msToMinutes } from './utils/spotifyutils';
 
-export default function SongRow({ index, track, addedAt, context }) {
+export default function SongRow({ index, track, addedAt, handleDoubleClick }) {
 
-    const [{ accessToken, currentTrack }] = useStore();
+    const [{ currentTrack }] = useStore();
     const [className, setClassName] = useState("song-row");
 
     useEffect(() => {
@@ -21,7 +21,7 @@ export default function SongRow({ index, track, addedAt, context }) {
     }, [currentTrack, track])
 
     return (
-        <div className={styles[className]} onDoubleClick={() => playTrack(accessToken, context, index - 1)}>
+        <div className={styles[className]} onDoubleClick={handleDoubleClick}>
             <TableRow
                 cell1={<p>{index}</p>}
                 cell2={

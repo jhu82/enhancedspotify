@@ -1,11 +1,7 @@
 export const initialState = {
     accessToken: null,
-    user: null,
     isPlaying: false,
     currentTrack: null,
-    currentPlaylist: null,
-    userPlaylists: [],
-    volume: null
 }
 
 export const reducer = (state, action) => {

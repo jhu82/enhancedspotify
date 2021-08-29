@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { stringToLocaleDate } from './utils/spotifyutils';
-import useFetch from './useFetch.js';
-import SongRow from './SongRow.js'
-import TableHeader from './TableHeader.js'
+import useFetch from './useFetch';
+import { useStore } from './store/SpotifyContextStore';
+import SongRow from './SongRow'
+import TableHeader from './TableHeader'
+import TableView from './TableView'; 
+import { playTrackFromURI } from './utils/spotifyutils';
 import recentTracksCover from './assets/recenttrackscover.png';
-import TableView from './TableView.js';
 
 export default function RecentTracksView() {
 
-    const { items: _currentPlaylist } = useFetch("https://api.spotify.com/v1/me/player/recently-played", {limit: 50, offset: 0}) || {};
+    const [{ accessToken }] = useStore();
+    const URL = "https://api.spotify.com/v1/me/player/recently-played";
+    const { items: _currentPlaylist } = useFetch(URL, {limit: 50, offset: 0}) || {};
     const [currentPlaylist, setCurrentPlaylist] = useState();
 
     //Filter out repeating tracks
@@ -29,7 +32,7 @@ export default function RecentTracksView() {
                                                                                 key={item.track.id}
                                                                                 track={item.track} 
                                                                                 index={index + 1} 
-                                                                                context={"recent"}
+                                                                                handleDoubleClick={() => playTrackFromURI(accessToken, [item.track.uri], 0)}
                                                                             />)}
         />   
     )

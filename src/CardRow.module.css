@@ -1,8 +1,23 @@
 .card-row {
     display: flex;
+    flex-direction: column;
+    margin: 2rem;
 }
 
-.card-row img {
-    height: 300px;
-    width: 300px;
+.category-title {
+    margin-left: 1rem;
+    margin-bottom: 0;
+    font-size: 1rem;
+}
+
+.card-display {
+    display: flex;
+    flex-direction: row;
+    margin-top: 0;
+}
+
+.card-display > a {
+    text-decoration: none;
+    color: white;
+    font: inherit;
 }

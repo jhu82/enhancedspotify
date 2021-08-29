@@ -1,16 +1,19 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { stringToLocaleDate } from './utils/spotifyutils';
-import useFetch from './useFetch.js';
-import SongRow from './SongRow.js'
-import TableHeader from './TableHeader.js'
+import useFetch from './useFetch';
+import { useStore } from './store/SpotifyContextStore';
+import SongRow from './SongRow'
+import TableHeader from './TableHeader'
+import TableView from './TableView';
+import { playTrackFromContext, stringToLocaleDate } from './utils/spotifyutils';
 import defaultPlaylistImage from "./assets/defaultplaylistimg.png";
-import TableView from './TableView.js';
 
 export default function PlaylistView() {
 
+    const [{accessToken}] = useStore();
     const { id } = useParams();
-    const currentPlaylist = useFetch(`https://api.spotify.com/v1/playlists/${id}`);
+    const URL = `https://api.spotify.com/v1/playlists/${id}`
+    const currentPlaylist = useFetch(URL);
 
     return(
         <TableView 
@@ -22,7 +25,7 @@ export default function PlaylistView() {
                                                                                             track={item.track} 
                                                                                             index={index + 1} 
                                                                                             addedAt={stringToLocaleDate(item.added_at)} 
-                                                                                            context={`spotify:playlist:${id}`}
+                                                                                            handleDoubleClick={() => playTrackFromContext(accessToken, `spotify:playlist:${id}`, index)}
                                                                                           />)}
         />
     )

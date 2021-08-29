@@ -1,14 +1,17 @@
 import React from 'react';
-import { stringToLocaleDate } from './utils/spotifyutils';
-import useFetch from './useFetch.js';
-import SongRow from './SongRow.js'
-import TableHeader from './TableHeader.js'
+import { playTrackFromURI, stringToLocaleDate } from './utils/spotifyutils';
+import useFetch from './useFetch';
+import { useStore } from './store/SpotifyContextStore';
+import SongRow from './SongRow'
+import TableHeader from './TableHeader'
+import TableView from './TableView';
 import favoriteTracksCover from "./assets/favoritetrackscover.png";
-import TableView from './TableView.js';
 
 export default function LikedTracksView() {
 
-    const { items: currentPlaylist } = useFetch("https://api.spotify.com/v1/me/tracks", {limit: 50, offset: 0}) || {};
+    const [{ accessToken }] = useStore();
+    const URL = "https://api.spotify.com/v1/me/tracks";
+    const { items: currentPlaylist } = useFetch(URL, {limit: 50, offset: 0}) || {};
     
     return(
         <TableView 
@@ -20,7 +23,7 @@ export default function LikedTracksView() {
                                                                                 track={item.track} 
                                                                                 index={index + 1}
                                                                                 addedAt={stringToLocaleDate(item.added_at)}
-                                                                                context={"favorites"}
+                                                                                handleDoubleClick={() => playTrackFromURI(accessToken, [item.track.uri], 0)}
                                                                             />)}
         />   
     )

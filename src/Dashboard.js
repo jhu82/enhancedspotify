@@ -2,10 +2,8 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import useToken from './useToken';
 import useWebPlayer from './useWebPlayer';
-import { useStore } from './store/SpotifyContextStore.js';
-import { transferPlayback} from 'utils/spotifyutils.js';
-import { createTheme } from '@material-ui/core/styles';
-import { ThemeProvider } from '@material-ui/styles';
+import { useStore } from './store/SpotifyContextStore';
+import { transferPlayback} from 'utils/spotifyutils';
 import Footer from './Footer';
 import LyricsSidebar from './LyricsSidebar';
 import MenuSidebar from './MenuSidebar';
@@ -17,19 +15,8 @@ export default function Dashboard({_accessToken, _refreshToken, _expiresIn}) {
 
     const [{ isPlaying, currentTrack }, dispatch] = useStore();
     const accessToken = useToken(_accessToken, _refreshToken, _expiresIn);
-    const [deviceID, player] = useWebPlayer(accessToken);
+    const [deviceID, player] = useWebPlayer(accessToken, _refreshToken);
     const [deviceReady, setDeviceReady] = useState(false);
-
-    const theme = createTheme({
-        palette: {
-            primary: {
-                main: '#b3b3b3'
-            },
-            secondary: {
-                main: '#ffffff'
-            }
-        }
-    })
 
     useEffect(async () => {
         if (!deviceID || !player) return;
@@ -37,7 +24,6 @@ export default function Dashboard({_accessToken, _refreshToken, _expiresIn}) {
         if (status === 204) {
             setDeviceReady(true);
         }
-        console.log(player);
         player.addListener('player_state_changed', state => {
             if (state !== null) {
                 dispatch({
@@ -53,22 +39,20 @@ export default function Dashboard({_accessToken, _refreshToken, _expiresIn}) {
     }, [deviceID, player])
 
     return(
-        <ThemeProvider theme={theme}>
-            <div className={styles['dashboard']}>
-                <Router>
-                    <MenuSidebar accessToken={accessToken} />
-                    <MainView accessToken={accessToken} />
-                </Router> 
-                <LyricsSidebar trackURI={currentTrack && currentTrack.uri}  
-                               artist={currentTrack && currentTrack.artists[0].name}
-                               trackName={currentTrack && currentTrack.name}
-                />
-                <Footer player={player} 
-                        deviceReady={deviceReady} 
-                        currentTrack={currentTrack}
-                        isPlaying={isPlaying}
-                />
-            </div>
-        </ThemeProvider>
+        <div className={styles['dashboard']}>
+            <Router>
+                <MenuSidebar accessToken={accessToken} />
+                <MainView accessToken={accessToken} />
+            </Router> 
+            <LyricsSidebar trackURI={currentTrack && currentTrack.uri}  
+                            artist={currentTrack && currentTrack.artists[0].name}
+                            trackName={currentTrack && currentTrack.name}
+            />
+            <Footer player={player} 
+                    deviceReady={deviceReady} 
+                    currentTrack={currentTrack}
+                    isPlaying={isPlaying}
+            />
+        </div>
     )
 }

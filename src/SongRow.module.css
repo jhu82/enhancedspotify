@@ -2,7 +2,7 @@
     composes: table-row from './TableRow.module.css';
     border-radius: 5px;
     user-select: none;
-    color: #ffffff;
+    color: white;
 }
 
 .song-row-current-track {

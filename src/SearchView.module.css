@@ -1,0 +1,13 @@
+.search-view > input {
+    height: 2rem;
+    margin: 2rem;
+    border: none;
+    border-radius: 1rem;
+    outline: none;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+.search-view > input[type="text"]{
+    padding-left: 1rem;
+}

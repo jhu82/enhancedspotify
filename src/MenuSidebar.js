@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from './MenuSidebar.module.css';
-import UserPlaylists from './UserPlaylists.js';
+import UserPlaylists from './UserPlaylists';
 import spotifyLogo from './assets/spotifylogo.png';
-import MenuItem from './MenuItem.js';
+import MenuItem from './MenuItem';
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import SearchIcon from '@material-ui/icons/Search';
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
@@ -19,7 +19,7 @@ export default function MenuSidebar({accessToken}) {
             />
             <div className={styles['menu-icons']}>
                 <MenuItem linkTo="/" icon={<HomeOutlinedIcon />} text="Home" />
-                <MenuItem linkTo="/" icon={<SearchIcon />} text="Search" />
+                <MenuItem linkTo="/search" icon={<SearchIcon />} text="Search" />
                 <MenuItem linkTo="/saved" icon={<FavoriteBorderOutlinedIcon />} text="Liked Songs" />
                 <MenuItem linkTo="/toptracks" icon={<ShowChartOutlinedIcon />} text="Top Tracks" />
                 <MenuItem linkTo="/recent" icon={<HistoryIcon />} text="Recently Played" />
