@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import useFetch from './useFetch';
+import useFetch from './utils/useFetch';
 import { useStore } from './store/SpotifyContextStore';
 import SongRow from './SongRow'
 import TableHeader from './TableHeader'

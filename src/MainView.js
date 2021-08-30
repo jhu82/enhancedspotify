@@ -1,15 +1,14 @@
 import React from 'react';
 import styles from './MainView.module.css';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import PlaylistView from './PlaylistView';
 import HomeView from './HomeView';
 import LikedTracksView from './LikedTracksView';
 import TopTracksView from './TopTracksView';
 import RecentTracksView from './RecentTracksView';
 import SearchView from './SearchView';
- 
 
-export default function MainView({ accessToken }) {
+export default function MainView() {
     return (
         <div className={styles['mainview']}>
             <Switch>
@@ -30,6 +29,9 @@ export default function MainView({ accessToken }) {
                 </Route>
                 <Route path="/">
                     <HomeView />
+                </Route>
+                <Route path="*">
+                    <Redirect to="/" />
                 </Route>
             </Switch>
         </div>

@@ -14,7 +14,7 @@ export default function Login() {
                 <h1>Spotify...Now With Lyrics</h1>
             </div>
             <div className={styles["login-body"]}>
-                <h6>
+                <p>
                     Developed with Spotify API and Spotify Web Player SDK
                     <br/>
                     <br/>
@@ -24,7 +24,7 @@ export default function Login() {
                     <br/>
                     <br/>
                     Created by Jinming Hu
-                </h6>
+                </p>
             </div>
             <div className={styles["login-bottom"]}>
                 <a href={AUTH_URL} >

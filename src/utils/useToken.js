@@ -1,14 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { useStore } from './store/SpotifyContextStore.js';
+import { useEffect } from 'react';
+import { useStore } from '../store/SpotifyContextStore.js';
 import axios from 'axios';
 
 export default function useToken(initialAccessToken, refreshToken, expiresIn) {
 
     const [{ accessToken }, dispatch] = useStore();
-
-    //Executes token refresh using expiresIn as countdown timer, to ensure there will be a new access token prior to expiration.
-    //TODO: ensure refresh token transfers smoothly in Spotify SDK once expires, and new token is received
-    //TODO: callback from SDK might not be working, might need to revalidate
 
     useEffect(() => {
         //Set accesstoken to inital accessToken if we are currently in intial state

@@ -2,7 +2,7 @@ import React from 'react';
 import Login from "./Login.js";
 import Dashboard from "./Dashboard";
 import { createTheme, ThemeProvider } from '@material-ui/core';
-import { Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 const accessToken = new URLSearchParams(window.location.search).get('access_token');
 const refreshToken = new URLSearchParams(window.location.search).get('refresh_token');
@@ -22,14 +22,12 @@ const theme = createTheme({
 export default function App() {
     return(
         <ThemeProvider theme={theme}>
-            <Route path="/">
             { (accessToken && refreshToken && expiresIn) ? <Dashboard 
                                                                 _accessToken = {accessToken} 
                                                                 _refreshToken = {refreshToken} 
                                                                 _expiresIn = {expiresIn} 
                                                             /> 
                                                             : <Login /> }
-            </Route>
         </ThemeProvider>
     )
 }

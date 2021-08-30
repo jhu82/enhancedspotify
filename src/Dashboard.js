@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import useToken from './useToken';
-import useWebPlayer from './useWebPlayer';
+import useToken from './utils/useToken';
+import useWebPlayer from './utils/useWebPlayer';
 import { useStore } from './store/SpotifyContextStore';
 import { transferPlayback} from 'utils/spotifyutils';
 import Footer from './Footer';
@@ -34,6 +34,9 @@ export default function Dashboard({_accessToken, _refreshToken, _expiresIn}) {
                     type: "SET_IS_PLAYING",
                     isPlaying: !state.paused
                 })
+                document.title = state.track_window.current_track.name + 
+                                 " - " + 
+                                 state.track_window.current_track.artists[0].name;
             }
         })
     }, [deviceID, player])

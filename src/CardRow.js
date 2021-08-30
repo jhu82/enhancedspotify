@@ -1,5 +1,5 @@
 import React from 'react';
-import useFetch from './useFetch';
+import useFetch from './utils/useFetch';
 import Card from './Card';
 import defaultPlaylistImage from "./assets/defaultplaylistimg.png";
 import styles from './CardRow.module.css';
@@ -7,7 +7,7 @@ import styles from './CardRow.module.css';
 export default function CardRow({ category, name }) {
 
 const URL = `https://api.spotify.com/v1/browse/categories/${category}/playlists`;
-const { playlists } = useFetch(URL, {limit: 6}) || {};
+const { playlists } = useFetch(URL, {limit: 6, country: "US"}) || {};
 
 return (
     <div className={styles["card-row"]}>

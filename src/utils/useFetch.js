@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useStore } from './store/SpotifyContextStore';
+import { useStore } from '../store/SpotifyContextStore';
 import axios from 'axios';
 
 export default function useFetch(url, params) {
