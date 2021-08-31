@@ -30,7 +30,7 @@ The application uses the following technologies and packages:
 
 **React**: For a fast and response library for SPA Front-End.
 
-**React Router**: Viewing multiple pages on the dashboard.
+**React Router**: Route multiple views on the main body of dashboard.
 
 **Material-UI**: Premade components and icons, mostly for playback footer.
 
