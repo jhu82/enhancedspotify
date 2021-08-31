@@ -4,7 +4,7 @@
 A Spotify single page application, with the added features of providing lyrics of the currently playing track. Also provides access to some personal playlists,
 such as your top tracks of the month as well as the most recently played tracks. Utilizes the Spotify API and Spotify Web SDK for browser playback.
 
-Lyrics are scraped real-time from azlyrics.com. Note that this is not for commercial use. 
+Lyrics are scraped real-time from azlyrics.com. Note that this is a personal project and not for commercial use. 
 
 ![Screen Shot 2021-08-30 at 7 19 18 PM](https://user-images.githubusercontent.com/6644815/131443819-27d3e913-cf24-4cd7-ab8a-455adb8ba03c.png)
 
