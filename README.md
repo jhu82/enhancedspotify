@@ -6,6 +6,18 @@ such as your top tracks of the month as well as the most recently played tracks.
 
 Lyrics are scraped real-time from azlyrics.com. Note that this is not for commercial use. 
 
+![Screen Shot 2021-08-30 at 7 19 18 PM](https://user-images.githubusercontent.com/6644815/131443819-27d3e913-cf24-4cd7-ab8a-455adb8ba03c.png)
+
+Login Page
+    
+![Screen Shot 2021-08-30 at 7 27 26 PM](https://user-images.githubusercontent.com/6644815/131440549-22f650e1-3d39-4cb9-a724-c61bfb8cc83e.png)
+
+Homepage View
+
+![Screen Shot 2021-08-30 at 8 04 47 PM](https://user-images.githubusercontent.com/6644815/131440580-cc13fd83-6215-47cf-afe9-c966f1962260.png)
+
+Sample Playlist View
+
 ## Motivation
 As an extensive user of Spotify, one simple but useful feature I had felt was missing is the availability of lyrics as you play the song. Taking advantage of an
 extensive API from Spotify, I tried to recreate most of the key features of the web application with the added benefit of viewing lyrics real time. As part of the 
@@ -58,17 +70,6 @@ A backend is set up to handle authorization calls in order to hide the API Keys 
     -LikedView: displays songs liked by user\
     -TopTracksView: display trending and most played song within the most recent 4 week period.
 
-![Screen Shot 2021-08-30 at 7 19 18 PM](https://user-images.githubusercontent.com/6644815/131443819-27d3e913-cf24-4cd7-ab8a-455adb8ba03c.png)
-
-Login Page
-    
-![Screen Shot 2021-08-30 at 7 27 26 PM](https://user-images.githubusercontent.com/6644815/131440549-22f650e1-3d39-4cb9-a724-c61bfb8cc83e.png)
-
-Homepage View
-
-![Screen Shot 2021-08-30 at 8 04 47 PM](https://user-images.githubusercontent.com/6644815/131440580-cc13fd83-6215-47cf-afe9-c966f1962260.png)
-
-Sample Playlist View
 
 ## Demo
 [Demo Here](https://www.youtube.com/watch?v=8FEpgTdSGag&ab_channel=JinmingHu)
@@ -81,12 +82,12 @@ Clone the project onto your local machine.
 
 From ./client 
 
-npm install
+npm install\
 npm start
 
 From ./server
 
-npm install
+npm install\
 nodemon server.js
 
 Go to localhost:8080 to access the application.
