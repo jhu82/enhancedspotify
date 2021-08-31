@@ -106,6 +106,7 @@ looks to be a great library but many features are gated under premium usage.
 2. Add infinite scrolling to large playlists. 
 3. Add artist/album view. 
 4. Handle podcasts, with the ability to add transcriptions instead of lyrics on the sidebar.
+5. Add media queries to support mobile view
 
 
 
